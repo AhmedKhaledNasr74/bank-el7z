@@ -15,6 +15,7 @@ import error from "../assets/error.wav";
 const START_BALANCE = 3000;
 const LOCAL_STORAGE_SCOREBOARD = "scoreboard";
 const LOCAL_STORAGE_GAME_STATUS = "status";
+const BANK_NAME = "bank";
 
 interface GameContextProps {
     players: Player[];
@@ -59,6 +60,7 @@ function GameContextProvider({ children }: GameContextProviderProps) {
             { name: "2", balance: START_BALANCE },
             { name: "3", balance: START_BALANCE },
             { name: "4", balance: START_BALANCE },
+            { name: BANK_NAME, balance: Infinity }, // Add the bank
         ];
     });
 
@@ -102,15 +104,30 @@ function GameContextProvider({ children }: GameContextProviderProps) {
             return false;
         }
 
-        if (players[fromIndex].balance < transferAmount) {
-            new Audio(error).play();
-            toast.error("رصيد اللاعب المرسل غير كافٍ");
-            return false;
+        // Special case: If the bank is involved, handle it separately
+        const updatedPlayers = [...players];
+        if (players[fromIndex].name === BANK_NAME) {
+            // Withdraw from the bank
+            updatedPlayers[toIndex].balance += transferAmount;
+        } else if (players[toIndex].name === BANK_NAME) {
+            // Deposit to the bank
+            if (players[fromIndex].balance < transferAmount) {
+                new Audio(error).play();
+                toast.error("رصيد اللاعب المرسل غير كافٍ");
+                return false;
+            }
+            updatedPlayers[fromIndex].balance -= transferAmount;
+        } else {
+            // Standard player-to-player transfer
+            if (players[fromIndex].balance < transferAmount) {
+                new Audio(error).play();
+                toast.error("رصيد اللاعب المرسل غير كافٍ");
+                return false;
+            }
+            updatedPlayers[fromIndex].balance -= transferAmount;
+            updatedPlayers[toIndex].balance += transferAmount;
         }
 
-        const updatedPlayers = [...players];
-        updatedPlayers[fromIndex].balance -= transferAmount;
-        updatedPlayers[toIndex].balance += transferAmount;
         setPlayers(updatedPlayers);
         new Audio(cash).play();
         toast.success("تمت عملية التحويل بنجاح");
@@ -120,7 +137,7 @@ function GameContextProvider({ children }: GameContextProviderProps) {
     const endGame = () => {
         const resetPlayers = players.map((player) => ({
             ...player,
-            balance: START_BALANCE,
+            balance: player.name === BANK_NAME ? Infinity : START_BALANCE, // Reset all players, but keep the bank infinite
         }));
         setPlayers(resetPlayers);
         setIsGameStarted(false);

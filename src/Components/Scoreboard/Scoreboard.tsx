@@ -12,21 +12,21 @@ const Scoreboard = () => {
                     <thead>
                         <tr>
                             <th className="border-2 border-purple-700/80 px-4 py-2 bg-purple-700/80">
-                                الرصيد
+                                اللاعب
                             </th>
                             <th className="border-2 border-purple-700/80 px-4 py-2 bg-purple-700/80">
-                                اللاعب
+                                الرصيد
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {Game.players.map((player, index) => (
+                        {Game.players.slice(0, -1).map((player, index) => (
                             <tr key={index}>
                                 <td className="border-2 border-purple-700/80 px-4 py-2 text-center">
-                                    {player.balance}
+                                    اللاعب {player.name}
                                 </td>
                                 <td className="border-2 border-purple-700/80 px-4 py-2 text-center">
-                                    Player {player.name}
+                                    {player.balance}
                                 </td>
                             </tr>
                         ))}

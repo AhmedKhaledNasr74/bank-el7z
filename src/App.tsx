@@ -4,7 +4,7 @@ import Transfer from "./Pages/Transfer/Transfer";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import GameContextProvider from "./Context/GameContext";
 import { Toaster } from "react-hot-toast";
-import Court from "./Pages/Court/Court";
+import Card from "./Pages/Card/Card";
 
 function App() {
     let router = createBrowserRouter([
@@ -19,12 +19,8 @@ function App() {
             element: <Transfer />,
         },
         {
-            path: "court",
-            element: <Court />,
-        },
-        {
-            path: "court/:from/:to",
-            element: <Court />,
+            path: "card",
+            element: <Card />,
         },
     ]);
     return (

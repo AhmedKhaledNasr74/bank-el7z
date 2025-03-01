@@ -35,7 +35,9 @@ const Transfer = () => {
                             <option value="">اختر اللاعب</option>
                             {Game.players.map((player, index) => (
                                 <option key={index} value={player.name}>
-                                    Player {player.name}
+                                    {player.name == "bank"
+                                        ? "البنك"
+                                        : `اللاعب ${player.name}`}
                                 </option>
                             ))}
                         </select>
@@ -53,7 +55,9 @@ const Transfer = () => {
                         <option value="">اختر اللاعب</option>
                         {Game.players.map((player, index) => (
                             <option key={index} value={player.name}>
-                                Player {player.name}
+                                {player.name == "bank"
+                                    ? "البنك"
+                                    : `اللاعب ${player.name}`}
                             </option>
                         ))}
                     </select>
