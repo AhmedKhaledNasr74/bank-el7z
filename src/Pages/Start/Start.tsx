@@ -1,13 +1,31 @@
 import { useNavigate } from "react-router-dom";
 import { useGame } from "../../Context/GameContext";
 import useRedirectIfGameopened from "../../Hooks/useRedirectIfGameOpened";
+import { motion } from "framer-motion";
+const pageVariants = {
+    hidden: { x: `100vw` },
+    visible: {
+        x: 0,
+        transition: { type: "spring", duration: 0.4 },
+    },
+    exit: {
+        x: "-100vw",
+        transition: { type: "spring", duration: 0.2 },
+    },
+};
 
 const Start = () => {
     useRedirectIfGameopened();
     const Navigate = useNavigate();
     const Game = useGame();
     return (
-        <div className="flex items-center justify-center h-screen bg-gradient-to-br from-yellow-300 to-orange-400">
+        <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={pageVariants}
+            className="flex items-center justify-center h-screen"
+        >
             <div className="text-center">
                 <h1 className="md:text-5xl text-4xl font-extrabold text-black mb-8">
                     مرحبًا بك في بنك الحظ
@@ -22,7 +40,7 @@ const Start = () => {
                     ابدأ اللعبة
                 </button>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

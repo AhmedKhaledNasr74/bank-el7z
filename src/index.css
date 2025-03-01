@@ -1,1 +1,6 @@
 @import "tailwindcss";
+body {
+    height: 100vh !important ;
+    background: linear-gradient(to bottom right, #ffdf20, #ff8d05) !important;
+    overflow-x: hidden;
+}

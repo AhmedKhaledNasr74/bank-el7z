@@ -3,6 +3,18 @@ import Scoreboard from "../../Components/Scoreboard/Scoreboard";
 import { useGame } from "../../Context/GameContext";
 import useRedirectIfGameClosed from "../../Hooks/useRedirectIfGameClosed";
 import click from "../../assets/click.wav";
+import { motion } from "framer-motion";
+const pageVariants = {
+    hidden: { x: `100vw` },
+    visible: {
+        x: 0,
+        transition: { type: "spring", duration: 0.4 },
+    },
+    exit: {
+        x: "-100vw",
+        transition: { type: "spring", duration: 0.2 },
+    },
+};
 
 const Game = () => {
     useRedirectIfGameClosed();
@@ -10,7 +22,13 @@ const Game = () => {
     const Game = useGame();
 
     return (
-        <div className="flex items-center justify-center h-screen bg-gradient-to-br from-yellow-300 to-orange-400">
+        <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={pageVariants}
+            className="flex items-center justify-center h-screen "
+        >
             <div className="text-center w-full">
                 <Scoreboard />
                 <div className="space-y-4 space-x-4">
@@ -34,7 +52,7 @@ const Game = () => {
                     </button>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
