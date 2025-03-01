@@ -8,6 +8,9 @@ import {
 import { Player } from "../Interfaces/Player";
 import start from "../assets/start.wav";
 import close from "../assets/close.wav";
+import toast from "react-hot-toast";
+import cash from "../assets/cash.wav";
+import error from "../assets/error.wav";
 
 const START_BALANCE = 3000;
 const LOCAL_STORAGE_SCOREBOARD = "scoreboard";
@@ -18,6 +21,11 @@ interface GameContextProps {
     setPlayers: (players: Player[]) => void;
     endGame: () => void;
     startGame: () => void;
+    handleTransfer: (
+        fromPlayer: string,
+        toPlayer: string,
+        amount: string
+    ) => boolean;
     isGameStarted: boolean;
 }
 
@@ -71,6 +79,44 @@ function GameContextProvider({ children }: GameContextProviderProps) {
         new Audio(start).play();
     };
 
+    const handleTransfer = (
+        fromPlayer: string,
+        toPlayer: string,
+        amount: string
+    ) => {
+        const fromIndex = players.findIndex(
+            (player) => player.name === fromPlayer
+        );
+        const toIndex = players.findIndex((player) => player.name === toPlayer);
+
+        if (fromIndex === -1 || toIndex === -1) {
+            new Audio(error).play();
+            toast.error("الرجاء اختيار لاعبين صحيحين");
+            return false;
+        }
+
+        const transferAmount = parseInt(amount);
+        if (isNaN(transferAmount) || transferAmount <= 0) {
+            new Audio(error).play();
+            toast.error("الرجاء إدخال مبلغ صحيح");
+            return false;
+        }
+
+        if (players[fromIndex].balance < transferAmount) {
+            new Audio(error).play();
+            toast.error("رصيد اللاعب المرسل غير كافٍ");
+            return false;
+        }
+
+        const updatedPlayers = [...players];
+        updatedPlayers[fromIndex].balance -= transferAmount;
+        updatedPlayers[toIndex].balance += transferAmount;
+        setPlayers(updatedPlayers);
+        new Audio(cash).play();
+        toast.success("تمت عملية التحويل بنجاح");
+        return true;
+    };
+
     const endGame = () => {
         const resetPlayers = players.map((player) => ({
             ...player,
@@ -83,7 +129,14 @@ function GameContextProvider({ children }: GameContextProviderProps) {
 
     return (
         <GameContext.Provider
-            value={{ players, setPlayers, endGame, startGame, isGameStarted }}
+            value={{
+                players,
+                setPlayers,
+                endGame,
+                startGame,
+                isGameStarted,
+                handleTransfer,
+            }}
         >
             {children}
         </GameContext.Provider>

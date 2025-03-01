@@ -9,7 +9,7 @@ const Start = () => {
     return (
         <div className="flex items-center justify-center h-screen bg-gradient-to-br from-yellow-300 to-orange-400">
             <div className="text-center">
-                <h1 className="text-5xl font-bold text-black mb-8">
+                <h1 className="md:text-5xl text-4xl font-extrabold text-black mb-8">
                     مرحبًا بك في بنك الحظ
                 </h1>
                 <button

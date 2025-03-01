@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGame } from "../../Context/GameContext";
-import toast from "react-hot-toast";
-import useRedirectIfGameClosed from "../../Hooks/useRedirectIfGameClosed";
-import cash from "../../assets/cash.wav";
-import click from "../../assets/click.wav";
-import error from "../../assets/error.wav";
 
+import useRedirectIfGameClosed from "../../Hooks/useRedirectIfGameClosed";
+
+import click from "../../assets/click.wav";
 const Transfer = () => {
     useRedirectIfGameClosed();
     const { id } = useParams();
@@ -15,46 +13,6 @@ const Transfer = () => {
     const [fromPlayer, setFromPlayer] = useState(id ? id : "");
     const [toPlayer, setToPlayer] = useState("");
     const [amount, setAmount] = useState("");
-
-    const handleTransfer = () => {
-        const fromIndex = Game.players.findIndex(
-            (player) => player.name === fromPlayer
-        );
-        const toIndex = Game.players.findIndex(
-            (player) => player.name === toPlayer
-        );
-
-        if (fromIndex === -1 || toIndex === -1) {
-            new Audio(error).play();
-            toast.error("الرجاء اختيار لاعبين صحيحين");
-            return;
-        }
-
-        const transferAmount = parseInt(amount);
-        if (isNaN(transferAmount) || transferAmount <= 0) {
-            new Audio(error).play();
-            toast.error("الرجاء إدخال مبلغ صحيح");
-            return;
-        }
-
-        if (Game.players[fromIndex].balance < transferAmount) {
-            new Audio(error).play();
-            toast.error("رصيد اللاعب المرسل غير كافٍ");
-            return;
-        }
-
-        const updatedPlayers = [...Game.players];
-        updatedPlayers[fromIndex].balance -= transferAmount;
-        updatedPlayers[toIndex].balance += transferAmount;
-        Game.setPlayers(updatedPlayers);
-
-        new Audio(cash).play();
-        toast.success("تمت عملية التحويل بنجاح");
-        setFromPlayer("");
-        setToPlayer("");
-        setAmount("");
-        Navigate("/game");
-    };
 
     return (
         <div className="flex items-center justify-center h-screen bg-gradient-to-br from-yellow-300 to-orange-400">
@@ -113,7 +71,10 @@ const Transfer = () => {
                 </div>
                 <button
                     className="w-full px-6 py-3 text-lg font-semibold text-white bg-purple-500 rounded-lg shadow-lg hover:bg-purple-600 focus:outline-none focus:ring-4 focus:ring-purple-300"
-                    onClick={handleTransfer}
+                    onClick={() => {
+                        if (Game.handleTransfer(fromPlayer, toPlayer, amount))
+                            Navigate("/game");
+                    }}
                 >
                     تحويل
                 </button>
