@@ -1,8 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import PlayerCard from "../../Components/PlayerCard/PlayerCard";
 import { useGame } from "../../Context/GameContext";
-import useRedirectIfGameopened from "../../Hooks/useRedirectIfGameOpened";
-import logo from "../../assets/logo.png";
-import wave from "../../assets/wave.svg";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 const pageVariants = {
     hidden: { x: `-100vw` },
@@ -15,27 +13,35 @@ const pageVariants = {
         transition: { type: "spring", duration: 0.2 },
     },
 };
-
-const Start = () => {
-    useRedirectIfGameopened();
-    const Navigate = useNavigate();
+const Winners = () => {
     const Game = useGame();
+    const Navigate = useNavigate();
     return (
         <motion.div
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={pageVariants}
-            className="flex items-center justify-center h-screen relative "
+            className=" min-h-screen flex flex-col items-center justify-center text-white p-4"
         >
-            <div className="text-center px-2">
-                <div className="flex items-center justify-center mb-8">
-                    <img src={logo} alt="logo photo" className="w-64 " />
-                </div>
+            <div className="text-center">
+                <h1 className="text-5xl font-bold mt-2">LEADERBOARD</h1>
+                <h2 className="text-5xl  mt-1 text-red-500 font-extrabold">
+                    WINNERS
+                </h2>
+            </div>
 
-                <h1 className="md:text-5xl text-4xl font-extrabold text-black mb-8">
-                    Welcome To Bank El-Haz Game
-                </h1>
+            <div className="relative  justify-between py-10 grid grid-cols-1 md:grid-cols-3 gap-5">
+                {Game?.players
+                    .slice(0, 4)
+                    ?.sort((a, b) => b.balance - a.balance)
+                    .slice(0, 3)
+                    .map((winner, i) => (
+                        <PlayerCard {...winner} rank={i + 1} key={i} />
+                    ))}
+            </div>
+
+            <div className="text-center">
                 <button
                     className="px-6 py-3 text-lg w-[150px] cursor-pointer font-semibold text-black bg-purple-600/90 rounded-lg shadow-lg hover:bg-purple-700/95 focus:outline-none focus:ring-4 focus:ring-purple-300 transition-transform transform hover:scale-105"
                     onClick={() => {
@@ -43,14 +49,11 @@ const Start = () => {
                         Game.startGame();
                     }}
                 >
-                    Start
+                    New Game
                 </button>
-                <div className="absolute bottom-0 left-0 right-0">
-                    <img src={wave} alt="" className="w-full md:hidden" />
-                </div>
             </div>
         </motion.div>
     );
 };
 
-export default Start;
+export default Winners;

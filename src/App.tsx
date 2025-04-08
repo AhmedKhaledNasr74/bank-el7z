@@ -1,28 +1,62 @@
 import Game from "./Pages/Game/Game";
 import Start from "./Pages/Start/Start";
 import Transfer from "./Pages/Transfer/Transfer";
-import Card from "./Pages/Card/Card";
 import { Routes, Route, useLocation } from "react-router-dom";
 import GameContextProvider from "./Context/GameContext";
 import { Toaster } from "react-hot-toast";
 import { AnimatePresence } from "framer-motion";
+import Winners from "./Pages/Winners/Winners";
+import Names from "./Pages/Names/Names";
+import Particles from "./Components/Particles/Particles";
+import Downbar from "./Components/Downbar/Downbar";
+import Scan from "./Pages/Scan/Scan";
 
 function App() {
     const location = useLocation();
 
     return (
-        <GameContextProvider>
-            <Toaster position="bottom-left" reverseOrder={false} />
-            <AnimatePresence mode="wait">
-                <Routes location={location} key={location.key}>
-                    <Route path="/" element={<Start />} />
-                    <Route path="/game" element={<Game />} />
-                    <Route path="/transfer/:id" element={<Transfer />} />
-                    <Route path="/transfer" element={<Transfer />} />
-                    <Route path="/card" element={<Card />} />
-                </Routes>
-            </AnimatePresence>
-        </GameContextProvider>
+        <div>
+            <Particles />
+            <GameContextProvider>
+                <Toaster
+                    position="bottom-right"
+                    reverseOrder={false}
+                    toastOptions={{
+                        style: {
+                            background: "#333",
+                            color: "#fff",
+                            fontSize: "16px",
+                            borderRadius: "8px",
+                        },
+                        success: {
+                            style: {
+                                background: "#28a745",
+                            },
+                        },
+                        error: {
+                            style: {
+                                background: "#dc3545",
+                            },
+                        },
+                    }}
+                />
+                <AnimatePresence mode="wait">
+                    <Routes location={location} key={location.key}>
+                        <Route path="/" element={<Start />} />
+                        <Route path="/names" element={<Names />} />
+                        <Route path="/winners" element={<Winners />} />
+                        <Route path="/game" element={<Game />} />
+                        <Route path="/transfer/:id" element={<Transfer />} />
+                        <Route path="/transfer" element={<Transfer />} />
+                        <Route path="/scan" element={<Scan />} />
+                        <Route path="/bank" element={<Transfer />} />
+                    </Routes>
+                </AnimatePresence>
+                {location.pathname !== "/" &&
+                    location.pathname !== "/names" &&
+                    location.pathname !== "/winners" && <Downbar />}
+            </GameContextProvider>
+        </div>
     );
 }
 

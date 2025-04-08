@@ -18,7 +18,7 @@ const Card = () => {
                         new Audio(click).play();
                     }}
                 >
-                    لوحة النتائج
+                    Scoreboard
                 </button>
                 <button
                     className="px-6 py-3 text-lg w-[150px] cursor-pointer font-semibold text-black bg-purple-600/90 rounded-lg shadow-lg hover:bg-purple-700/95 focus:outline-none focus:ring-4 focus:ring-purple-300 transition-transform transform hover:scale-105"
@@ -27,7 +27,7 @@ const Card = () => {
                         new Audio(click).play();
                     }}
                 >
-                    تحويل
+                    Transfer
                 </button>
             </div>
         </div>

@@ -1,6 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Slackey&display=swap");
 @import "tailwindcss";
+
+* {
+    color: #fff !important;
+}
 body {
-    height: 100vh !important ;
-    background: linear-gradient(to bottom right, #ffdf20, #ff8d05) !important;
+    min-height: 100vh !important ;
+    background: #150c30 !important;
+    font-family: "Slackey", sans-serif;
+
     overflow-x: hidden;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateY(-10px);
+        opacity: 0.8;
+    }
+}
+
+.animate-float {
+    animation: float ease-in-out infinite;
+}
+
+.button {
+    background: linear-gradient(206.14deg, #f76484 0%, #f79741 145.34%);
 }

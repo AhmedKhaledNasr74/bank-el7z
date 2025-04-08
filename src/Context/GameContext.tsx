@@ -13,21 +13,31 @@ import cash from "../assets/cash.wav";
 import error from "../assets/error.wav";
 
 const START_BALANCE = 3000;
+const START_TOWNS: string[] = [];
 const LOCAL_STORAGE_SCOREBOARD = "scoreboard";
-const LOCAL_STORAGE_GAME_STATUS = "status";
-const BANK_NAME = "bank";
+// const LOCAL_STORAGE_GAME_STATUS = "status";
+// const BANK_NAME = "bank";
+
+const INITIAL_SCOREBOARD = [
+    { id: "1", name: "1", balance: START_BALANCE, towns: START_TOWNS },
+    { id: "2", name: "2", balance: START_BALANCE, towns: START_TOWNS },
+    { id: "3", name: "3", balance: START_BALANCE, towns: START_TOWNS },
+    { id: "4", name: "4", balance: START_BALANCE, towns: START_TOWNS },
+    { id: "5", name: "bank", balance: Infinity, towns: START_TOWNS },
+];
 
 interface GameContextProps {
     players: Player[];
+    maxScore: number;
     setPlayers: (players: Player[]) => void;
     endGame: () => void;
     startGame: () => void;
+    setNames: (names: string[]) => void;
     handleTransfer: (
         fromPlayer: string,
         toPlayer: string,
         amount: string
     ) => boolean;
-    isGameStarted: boolean;
 }
 
 export const GameContext = createContext<GameContextProps | null>(null);
@@ -37,48 +47,29 @@ interface GameContextProviderProps {
 }
 
 function GameContextProvider({ children }: GameContextProviderProps) {
-    const [isGameStarted, setIsGameStarted] = useState<boolean>(() => {
-        try {
-            const storedIsGameStarted = localStorage.getItem(
-                LOCAL_STORAGE_GAME_STATUS
-            );
-            return storedIsGameStarted
-                ? (JSON.parse(storedIsGameStarted) as boolean)
-                : false;
-        } catch {
-            return false; // Fallback if JSON parsing fails
-        }
-    });
     const [players, setPlayers] = useState<Player[]>(() => {
-        // Initialize players from localStorage or set defaults
         const storedPlayers = localStorage.getItem(LOCAL_STORAGE_SCOREBOARD);
         if (storedPlayers) {
             return JSON.parse(storedPlayers) as Player[];
         }
-        return [
-            { name: "1", balance: START_BALANCE },
-            { name: "2", balance: START_BALANCE },
-            { name: "3", balance: START_BALANCE },
-            { name: "4", balance: START_BALANCE },
-            { name: BANK_NAME, balance: Infinity }, // Add the bank
-        ];
+        return [];
+        // return [...INITIAL_SCOREBOARD];
     });
-
+    const [maxScore, setMaxScore] = useState<number>(
+        Math.max(...players.slice(0, -1).map((player) => player.balance))
+    );
     // Save players to localStorage whenever they change
     useEffect(() => {
+        if (!players.length) return;
         localStorage.setItem(LOCAL_STORAGE_SCOREBOARD, JSON.stringify(players));
+        setMaxScore(
+            Math.max(...players.slice(0, -1).map((player) => player.balance))
+        );
     }, [players]);
 
-    useEffect(() => {
-        localStorage.setItem(
-            LOCAL_STORAGE_GAME_STATUS,
-            JSON.stringify(isGameStarted)
-        );
-    }, [isGameStarted]);
-
     const startGame = () => {
-        setIsGameStarted(true);
         new Audio(start).play();
+        setPlayers([...INITIAL_SCOREBOARD]);
     };
 
     const handleTransfer = (
@@ -87,33 +78,33 @@ function GameContextProvider({ children }: GameContextProviderProps) {
         amount: string
     ) => {
         const fromIndex = players.findIndex(
-            (player) => player.name === fromPlayer
+            (player) => player.id === fromPlayer
         );
-        const toIndex = players.findIndex((player) => player.name === toPlayer);
+        const toIndex = players.findIndex((player) => player.id === toPlayer);
 
         if (fromIndex === -1 || toIndex === -1) {
             new Audio(error).play();
-            toast.error("الرجاء اختيار لاعبين صحيحين");
+            toast.error("Please select valid players.");
             return false;
         }
 
         const transferAmount = parseInt(amount);
         if (isNaN(transferAmount) || transferAmount <= 0) {
             new Audio(error).play();
-            toast.error("الرجاء إدخال مبلغ صحيح");
+            toast.error("Please enter a valid amount.");
             return false;
         }
 
         // Special case: If the bank is involved, handle it separately
         const updatedPlayers = [...players];
-        if (players[fromIndex].name === BANK_NAME) {
+        if (players[fromIndex].id === "5") {
             // Withdraw from the bank
             updatedPlayers[toIndex].balance += transferAmount;
-        } else if (players[toIndex].name === BANK_NAME) {
+        } else if (players[toIndex].id === "5") {
             // Deposit to the bank
             if (players[fromIndex].balance < transferAmount) {
                 new Audio(error).play();
-                toast.error("رصيد اللاعب المرسل غير كافٍ");
+                toast.error("The sender's balance is insufficient.");
                 return false;
             }
             updatedPlayers[fromIndex].balance -= transferAmount;
@@ -121,7 +112,7 @@ function GameContextProvider({ children }: GameContextProviderProps) {
             // Standard player-to-player transfer
             if (players[fromIndex].balance < transferAmount) {
                 new Audio(error).play();
-                toast.error("رصيد اللاعب المرسل غير كافٍ");
+                toast.error("The sender's balance is insufficient.");
                 return false;
             }
             updatedPlayers[fromIndex].balance -= transferAmount;
@@ -130,29 +121,32 @@ function GameContextProvider({ children }: GameContextProviderProps) {
 
         setPlayers(updatedPlayers);
         new Audio(cash).play();
-        toast.success("تمت عملية التحويل بنجاح");
+        toast.success("The transfer was completed successfully.");
         return true;
     };
 
     const endGame = () => {
-        const resetPlayers = players.map((player) => ({
-            ...player,
-            balance: player.name === BANK_NAME ? Infinity : START_BALANCE, // Reset all players, but keep the bank infinite
-        }));
-        setPlayers(resetPlayers);
-        setIsGameStarted(false);
+        localStorage.clear();
+        // setPlayers([...INITIAL_SCOREBOARD]);
         new Audio(close).play();
+    };
+
+    const setNames = (names: string[]) => {
+        setPlayers((prevPlayers) =>
+            prevPlayers.map((player, i) => ({ ...player, name: names[i] }))
+        );
     };
 
     return (
         <GameContext.Provider
             value={{
                 players,
+                maxScore,
                 setPlayers,
                 endGame,
                 startGame,
-                isGameStarted,
                 handleTransfer,
+                setNames,
             }}
         >
             {children}
