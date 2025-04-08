@@ -4,18 +4,16 @@ import home from "../../assets/home.png";
 import bank from "../../assets/bank.png";
 import transfer from "../../assets/transfer.png";
 import click from "../../assets/click.wav";
-import { Link, useLocation } from "react-router-dom";
-import { useGame } from "../../Context/GameContext";
+import { useLocation, useNavigate } from "react-router-dom";
+import Message from "../Message/Message";
+import { useState } from "react";
 
 const Downbar = () => {
-    const Game = useGame();
+    const Navigate = useNavigate();
     const navigations = [
         {
             name: "",
             icon: end,
-            function: () => {
-                Game.endGame();
-            },
         },
         {
             name: "scan",
@@ -35,16 +33,19 @@ const Downbar = () => {
         },
     ];
     const location = useLocation();
+    const [showMessage, setShowMessage] = useState(false);
     return (
         <div className="flex items-center justify-center w-full h-16 bg-gradient-to-br from-[#FF6091] to-[#5127DD] text-white font-bold text-lg absolute bottom-0 rounded-t-[50px]">
             <div className="flex items-center justify-between w-full max-w-4xl px-10">
+                {showMessage && <Message setShowMessage={setShowMessage} />}
                 {navigations.map((link, idx) => (
-                    <Link
-                        to={`/${link.name}`}
+                    <div
                         onClick={() => {
                             new Audio(click).play();
-                            if (link.function) {
-                                link.function();
+                            if (link.name == "") {
+                                setShowMessage(true);
+                            } else {
+                                Navigate(`/${link.name}`);
                             }
                         }}
                         key={link.name + idx}
@@ -62,7 +63,7 @@ const Downbar = () => {
                                 link.name === "bank" ? "w-[35px]" : ""
                             } `}
                         />
-                    </Link>
+                    </div>
                 ))}
             </div>
         </div>
