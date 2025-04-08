@@ -20,7 +20,11 @@ const Start = () => {
         >
             <div className="text-center px-2">
                 <div className="flex items-center justify-center mb-8">
-                    <img src={logo} alt="logo photo" className="w-64 " />
+                    <img
+                        src={logo}
+                        alt="logo photo"
+                        className="w-64 scale-pulse"
+                    />
                 </div>
 
                 <h1 className="md:text-5xl text-4xl font-extrabold text-black mb-8">

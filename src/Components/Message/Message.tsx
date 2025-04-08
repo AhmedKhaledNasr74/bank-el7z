@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { useGame } from "../../Context/GameContext";
 import { Dispatch, SetStateAction } from "react";
 
 type MessageProps = {
@@ -8,7 +7,6 @@ type MessageProps = {
 };
 
 const Message = ({ setShowMessage }: MessageProps) => {
-    const Game = useGame();
     const Navigate = useNavigate();
     return (
         <div className="w-full h-screen flex flex-col items-center justify-center text-white fixed z-50 top-0 left-0 bg-black bg-opacity-50">
@@ -29,8 +27,7 @@ const Message = ({ setShowMessage }: MessageProps) => {
                 <button
                     className="button px-8 py-3 rounded-full hover:scale-110 transition-all cursor-pointer"
                     onClick={() => {
-                        Game.endGame();
-                        Navigate("/");
+                        Navigate("/winners");
                     }}
                 >
                     yes

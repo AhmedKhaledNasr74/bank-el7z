@@ -8,7 +8,11 @@ const Scoreboard = () => {
         <div className="flex items-center justify-center  font-medium">
             <div className="w-full max-w-md rounded-lg  p-6">
                 <div className="flex items-center justify-center mb-8">
-                    <img src={logo} alt="logo photo" className="w-44 " />
+                    <img
+                        src={logo}
+                        alt="logo photo"
+                        className="w-44 scale-pulse"
+                    />
                 </div>
                 <h1 className="text-3xl font-bold text-center mb-6">
                     Scoreboard

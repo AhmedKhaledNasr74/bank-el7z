@@ -11,10 +11,10 @@ import close from "../assets/close.wav";
 import toast from "react-hot-toast";
 import cash from "../assets/cash.wav";
 import error from "../assets/error.wav";
-import player1 from "../assets/player1.png";
-import player2 from "../assets/player2.png";
-import player3 from "../assets/player3.png";
-import player4 from "../assets/player4.png";
+import player1 from "../assets/player1.svg";
+import player2 from "../assets/player2.svg";
+import player3 from "../assets/player3.svg";
+import player4 from "../assets/player4.svg";
 
 const START_BALANCE = 3000;
 // const START_TOWNS: string[] = [];

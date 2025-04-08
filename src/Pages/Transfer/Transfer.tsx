@@ -25,7 +25,11 @@ const Transfer = () => {
         >
             <div className="w-full max-w-md  rounded-lg  p-6">
                 <div className="flex items-center justify-center mb-6">
-                    <img src={logo} alt="logo photo" className="w-44 " />
+                    <img
+                        src={logo}
+                        alt="logo photo"
+                        className="w-44 scale-pulse"
+                    />
                 </div>
                 <span className="">Transfer from</span>
                 <div className="flex gap-5 items-center justify-center mb-8">

@@ -1,8 +1,8 @@
-import end from "../../assets/end.png";
-import scan from "../../assets/scan.png";
-import home from "../../assets/home.png";
-import bank from "../../assets/bank.png";
-import transfer from "../../assets/transfer.png";
+import end from "../../assets/end.svg";
+import scan from "../../assets/scan.svg";
+import home from "../../assets/home.svg";
+import bank from "../../assets/bank.svg";
+import transfer from "../../assets/transfer.svg";
 import click from "../../assets/click.wav";
 import { useLocation, useNavigate } from "react-router-dom";
 import Message from "../Message/Message";

@@ -31,3 +31,17 @@ body {
 .button {
     background: linear-gradient(206.14deg, #f76484 0%, #f79741 145.34%);
 }
+
+@keyframes scalePulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.scale-pulse {
+    animation: scalePulse 2.5s ease-in-out infinite;
+}

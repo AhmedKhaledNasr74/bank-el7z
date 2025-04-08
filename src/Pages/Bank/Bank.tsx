@@ -30,7 +30,11 @@ const Bank = () => {
         >
             <div className="w-full max-w-md rounded-2xl p-8 transform transition-all">
                 <div className="flex items-center justify-center mb-8">
-                    <img src={logo} alt="logo photo" className="w-44 " />
+                    <img
+                        src={logo}
+                        alt="logo photo"
+                        className="w-44 scale-pulse"
+                    />
                 </div>
                 {id ? (
                     // Render amount form when a player is selected

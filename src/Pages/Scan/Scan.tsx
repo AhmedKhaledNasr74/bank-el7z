@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Webcam from "react-webcam";
 import pageVariants from "../../assets/pageVariants.json";
-
+import logo from "../../assets/logo.png";
 const videoConstraints = {
     facingMode: "environment", // Use back camera
 };
@@ -17,6 +17,15 @@ const Scan = () => {
             variants={pageVariants}
             className="min-h-screen  flex flex-col items-center justify-center p-4"
         >
+            <div className="text-center">
+                <div className="flex items-center justify-center mb-8">
+                    <img
+                        src={logo}
+                        alt="logo photo"
+                        className="w-44 scale-pulse"
+                    />
+                </div>
+            </div>
             <div className="justify-center items-center flex flex-col w-full">
                 <div className="w-full border h-[300px] z-50">
                     {isCameraOpen ? (

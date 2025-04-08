@@ -45,7 +45,11 @@ const Names = () => {
         >
             <div className="w-full max-w-md  rounded-2xl  p-8 transform transition-all">
                 <div className="flex items-center justify-center mb-8">
-                    <img src={logo} alt="logo photo" className="w-44 " />
+                    <img
+                        src={logo}
+                        alt="logo photo"
+                        className="w-44 scale-pulse"
+                    />
                 </div>
                 <div className="flex items-center gap-3 mb-8  justify-center">
                     <h1 className="text-3xl font-bold text-purple-700">
