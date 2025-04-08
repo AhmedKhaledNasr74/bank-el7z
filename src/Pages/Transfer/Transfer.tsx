@@ -57,12 +57,16 @@ const Transfer = () => {
                                 value={fromPlayer}
                                 onChange={(e) => setFromPlayer(e.target.value)}
                             >
-                                <option value=""> Choose Player</option>
+                                <option value="" className="bg-gray-700/50 ">
+                                    Choose Player
+                                </option>
                                 {Game.players.map((player, index) => (
-                                    <option key={index} value={player.id}>
-                                        {player.name == "bank"
-                                            ? "Bank"
-                                            : ` ${player.name}`}
+                                    <option
+                                        key={index}
+                                        value={player.id}
+                                        className="bg-gray-700/50 "
+                                    >
+                                        {player.name}
                                     </option>
                                 ))}
                             </select>
@@ -75,12 +79,16 @@ const Transfer = () => {
                             value={toPlayer}
                             onChange={(e) => setToPlayer(e.target.value)}
                         >
-                            <option value="">Choose Player </option>
+                            <option value="" className="bg-gray-700/50 ">
+                                Choose Player
+                            </option>
                             {Game.players.map((player, index) => (
-                                <option key={index} value={player.id}>
-                                    {player.name == "bank"
-                                        ? "Bank"
-                                        : ` ${player.name}`}
+                                <option
+                                    key={index}
+                                    value={player.id}
+                                    className="bg-gray-700/50 "
+                                >
+                                    {player.name}
                                 </option>
                             ))}
                         </select>

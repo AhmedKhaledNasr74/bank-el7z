@@ -29,7 +29,7 @@ const Scoreboard = () => {
 
                 <div className="flex justify-center p-10">
                     <div className="grid grid-cols-4 gap-12  items-end">
-                        {Game.players.slice(0, -1).map((player, index) => (
+                        {Game.players.map((player, index) => (
                             <div
                                 key={index}
                                 className={`flex flex-col items-center  bg-red-200 relative w-[35px] rounded-full bg-gradient-to-r ${gradients[index]}  transition-transform duration-300 ease-in-out`}

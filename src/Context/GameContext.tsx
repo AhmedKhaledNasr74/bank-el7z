@@ -23,7 +23,7 @@ const INITIAL_SCOREBOARD = [
     { id: "2", name: "2", balance: START_BALANCE, towns: START_TOWNS },
     { id: "3", name: "3", balance: START_BALANCE, towns: START_TOWNS },
     { id: "4", name: "4", balance: START_BALANCE, towns: START_TOWNS },
-    { id: "5", name: "bank", balance: Infinity, towns: START_TOWNS },
+    // { id: "5", name: "bank", balance: Infinity, towns: START_TOWNS },
 ];
 
 interface GameContextProps {
@@ -56,15 +56,13 @@ function GameContextProvider({ children }: GameContextProviderProps) {
         // return [...INITIAL_SCOREBOARD];
     });
     const [maxScore, setMaxScore] = useState<number>(
-        Math.max(...players.slice(0, -1).map((player) => player.balance))
+        Math.max(...players.map((player) => player.balance))
     );
     // Save players to localStorage whenever they change
     useEffect(() => {
         if (!players.length) return;
         localStorage.setItem(LOCAL_STORAGE_SCOREBOARD, JSON.stringify(players));
-        setMaxScore(
-            Math.max(...players.slice(0, -1).map((player) => player.balance))
-        );
+        setMaxScore(Math.max(...players.map((player) => player.balance)));
     }, [players]);
 
     const startGame = () => {

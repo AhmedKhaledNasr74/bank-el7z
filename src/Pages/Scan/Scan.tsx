@@ -27,7 +27,7 @@ const Scan = () => {
             className="min-h-screen  flex flex-col items-center justify-center p-4"
         >
             <div className="justify-center items-center flex flex-col w-full">
-                <div className="w-full border h-[300px]">
+                <div className="w-full border h-[300px] z-50">
                     {isCameraOpen ? (
                         <Webcam
                             className="w-full h-[300px]"

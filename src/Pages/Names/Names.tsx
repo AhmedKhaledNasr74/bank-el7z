@@ -35,7 +35,6 @@ const Names = () => {
         "player 2",
         "player 3",
         "player 4",
-        "bank",
     ]);
 
     const Game = useGame();
@@ -78,7 +77,7 @@ const Names = () => {
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    {playerNames.slice(0, 4).map((name, index) => (
+                    {playerNames.map((name, index) => (
                         <div key={index} className="relative group">
                             <div className="flex relative group">
                                 <input
