@@ -10,6 +10,7 @@ import Names from "./Pages/Names/Names";
 import Particles from "./Components/Particles/Particles";
 import Downbar from "./Components/Downbar/Downbar";
 import Scan from "./Pages/Scan/Scan";
+import Bank from "./Pages/Bank/Bank";
 
 function App() {
     const location = useLocation();
@@ -49,7 +50,8 @@ function App() {
                         <Route path="/transfer/:id" element={<Transfer />} />
                         <Route path="/transfer" element={<Transfer />} />
                         <Route path="/scan" element={<Scan />} />
-                        <Route path="/bank" element={<Transfer />} />
+                        <Route path="/bank" element={<Bank />} />
+                        <Route path="/bank/:id" element={<Bank />} />
                     </Routes>
                 </AnimatePresence>
                 {location.pathname !== "/" &&

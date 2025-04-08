@@ -4,17 +4,7 @@ import useRedirectIfGameopened from "../../Hooks/useRedirectIfGameOpened";
 import logo from "../../assets/logo.png";
 import wave from "../../assets/wave.svg";
 import { motion } from "framer-motion";
-const pageVariants = {
-    hidden: { x: `-100vw` },
-    visible: {
-        x: 0,
-        transition: { type: "spring", duration: 0.4 },
-    },
-    exit: {
-        x: "100vw",
-        transition: { type: "spring", duration: 0.2 },
-    },
-};
+import pageVariants from "../../assets/pageVariants.json";
 
 const Start = () => {
     useRedirectIfGameopened();

@@ -4,30 +4,7 @@ import { useNavigate } from "react-router-dom";
 import click from "../../assets/click.wav";
 import { motion } from "framer-motion";
 import logo from "../../assets/logo.png";
-import player1 from "../../assets/player1.png";
-import player2 from "../../assets/player2.png";
-import player3 from "../../assets/player3.png";
-import player4 from "../../assets/player4.png";
-
-const playerImages = [player1, player2, player3, player4];
-const pageVariants = {
-    hidden: { x: `-100vw` },
-    visible: {
-        x: 0,
-        transition: { type: "spring", duration: 0.4 },
-    },
-    exit: {
-        x: "100vw",
-        transition: { type: "spring", duration: 0.2 },
-    },
-};
-
-const gradients = [
-    "from-[#FF6091] to-[#5127DD]",
-    "from-[#F76484] to-[#F79741]",
-    "from-[#30CD89] to-[#27A1EE]",
-    "from-[#FE7B5F] to-[#FFCF37]",
-];
+import pageVariants from "../../assets/pageVariants.json";
 
 const Names = () => {
     const [playerNames, setPlayerNames] = useState<string[]>([
@@ -90,11 +67,11 @@ const Names = () => {
                                           focus:ring-1 focus:border-0 focus:outline-none
                                          transition-all duration-200 ease-in-out
                                          text-gray-900 placeholder-gray-400 group-hover:-translate-y-0.5
-                                         shadow-sm rounded-full text-center bg-gradient-to-br ${gradients[index]}`}
+                                         shadow-sm rounded-full text-center bg-gradient-to-br ${Game.players[index].colorTheme} `}
                                     placeholder={`Player ${index + 1}`}
                                 />
                                 <img
-                                    src={playerImages[index]}
+                                    src={Game.players[index].image}
                                     alt="player image"
                                     className="absolute right-2  transform   h-full group-hover:-translate-y-0.5 transition-all"
                                 />

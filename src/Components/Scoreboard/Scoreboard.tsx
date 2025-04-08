@@ -1,18 +1,5 @@
 import { useGame } from "../../Context/GameContext";
 import logo from "../../assets/logo.png";
-import player1 from "../../assets/player1.png";
-import player2 from "../../assets/player2.png";
-import player3 from "../../assets/player3.png";
-import player4 from "../../assets/player4.png";
-
-const playerImages = [player1, player2, player3, player4];
-
-const gradients = [
-    "from-[#FF6091] to-[#5127DD]",
-    "from-[#F76484] to-[#F79741]",
-    "from-[#30CD89] to-[#27A1EE]",
-    "from-[#FE7B5F] to-[#FFCF37]",
-];
 
 const maxHeight = 200;
 const Scoreboard = () => {
@@ -29,10 +16,10 @@ const Scoreboard = () => {
 
                 <div className="flex justify-center p-10">
                     <div className="grid grid-cols-4 gap-12  items-end">
-                        {Game.players.map((player, index) => (
+                        {Game.players.map((player) => (
                             <div
-                                key={index}
-                                className={`flex flex-col items-center  bg-red-200 relative w-[35px] rounded-full bg-gradient-to-r ${gradients[index]}  transition-transform duration-300 ease-in-out`}
+                                key={player.id}
+                                className={`flex flex-col items-center  bg-red-200 relative w-[35px] rounded-full bg-gradient-to-r ${player.colorTheme}  transition-transform duration-300 ease-in-out`}
                                 style={{
                                     height: `${Math.floor(
                                         (player.balance / Game.maxScore) *
@@ -42,8 +29,8 @@ const Scoreboard = () => {
                             >
                                 <div className="absolute -bottom-12 ">
                                     <img
-                                        src={playerImages[index]}
-                                        alt={`Player ${index + 1}`}
+                                        src={player.image}
+                                        alt={`Player ${player.id}`}
                                         className="w-[80px]  mb-2"
                                     />
                                     <p className="text-lg">{player.balance}</p>

@@ -1,17 +1,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Webcam from "react-webcam";
-const pageVariants = {
-    hidden: { x: `-100vw` },
-    visible: {
-        x: 0,
-        transition: { type: "spring", duration: 0.4 },
-    },
-    exit: {
-        x: "100vw",
-        transition: { type: "spring", duration: 0.2 },
-    },
-};
+import pageVariants from "../../assets/pageVariants.json";
+
 const videoConstraints = {
     facingMode: "environment", // Use back camera
 };

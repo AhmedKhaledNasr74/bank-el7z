@@ -11,18 +11,46 @@ import close from "../assets/close.wav";
 import toast from "react-hot-toast";
 import cash from "../assets/cash.wav";
 import error from "../assets/error.wav";
+import player1 from "../assets/player1.png";
+import player2 from "../assets/player2.png";
+import player3 from "../assets/player3.png";
+import player4 from "../assets/player4.png";
 
 const START_BALANCE = 3000;
-const START_TOWNS: string[] = [];
+// const START_TOWNS: string[] = [];
 const LOCAL_STORAGE_SCOREBOARD = "scoreboard";
 // const LOCAL_STORAGE_GAME_STATUS = "status";
 // const BANK_NAME = "bank";
 
 const INITIAL_SCOREBOARD = [
-    { id: "1", name: "1", balance: START_BALANCE, towns: START_TOWNS },
-    { id: "2", name: "2", balance: START_BALANCE, towns: START_TOWNS },
-    { id: "3", name: "3", balance: START_BALANCE, towns: START_TOWNS },
-    { id: "4", name: "4", balance: START_BALANCE, towns: START_TOWNS },
+    {
+        id: "1",
+        name: "1",
+        balance: START_BALANCE,
+        image: player1,
+        colorTheme: "from-[#FF6091] to-[#5127DD]",
+    },
+    {
+        id: "2",
+        name: "2",
+        balance: START_BALANCE,
+        image: player2,
+        colorTheme: "from-[#F76484] to-[#F79741]",
+    },
+    {
+        id: "3",
+        name: "3",
+        balance: START_BALANCE,
+        image: player3,
+        colorTheme: "from-[#30CD89] to-[#27A1EE]",
+    },
+    {
+        id: "4",
+        name: "4",
+        balance: START_BALANCE,
+        image: player4,
+        colorTheme: "from-[#FE7B5F] to-[#FFCF37]",
+    },
     // { id: "5", name: "bank", balance: Infinity, towns: START_TOWNS },
 ];
 
@@ -75,16 +103,12 @@ function GameContextProvider({ children }: GameContextProviderProps) {
         toPlayer: string,
         amount: string
     ) => {
+        // Validate input
+
         const fromIndex = players.findIndex(
             (player) => player.id === fromPlayer
         );
         const toIndex = players.findIndex((player) => player.id === toPlayer);
-
-        if (fromIndex === -1 || toIndex === -1) {
-            new Audio(error).play();
-            toast.error("Please select valid players.");
-            return false;
-        }
 
         const transferAmount = parseInt(amount);
         if (isNaN(transferAmount) || transferAmount <= 0) {
@@ -95,10 +119,10 @@ function GameContextProvider({ children }: GameContextProviderProps) {
 
         // Special case: If the bank is involved, handle it separately
         const updatedPlayers = [...players];
-        if (players[fromIndex].id === "5") {
+        if (fromPlayer === "5") {
             // Withdraw from the bank
             updatedPlayers[toIndex].balance += transferAmount;
-        } else if (players[toIndex].id === "5") {
+        } else if (toPlayer === "5") {
             // Deposit to the bank
             if (players[fromIndex].balance < transferAmount) {
                 new Audio(error).play();

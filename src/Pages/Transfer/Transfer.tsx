@@ -3,26 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGame } from "../../Context/GameContext";
 import logo from "../../assets/logo.png";
 import useRedirectIfGameClosed from "../../Hooks/useRedirectIfGameClosed";
-
 import { motion } from "framer-motion";
-const pageVariants = {
-    hidden: { x: `-100vw` },
-    visible: {
-        x: 0,
-        transition: { type: "spring", duration: 0.4 },
-    },
-    exit: {
-        x: "100vw",
-        transition: { type: "spring", duration: 0.2 },
-    },
-};
+import pageVariants from "../../assets/pageVariants.json";
 
-// const gradients = [
-//     "from-[#FF6091] to-[#5127DD]",
-//     "from-[#F76484] to-[#F79741]",
-//     "from-[#30CD89] to-[#27A1EE]",
-//     "from-[#FE7B5F] to-[#FFCF37]",
-// ];
 const Transfer = () => {
     useRedirectIfGameClosed();
     const { id } = useParams();
@@ -46,19 +29,24 @@ const Transfer = () => {
                 </div>
                 <span className="">Transfer from</span>
                 <div className="flex gap-5 items-center justify-center mb-8">
-                    <div className="mb-4 mt-2">
+                    <div className="mb-4 mt-2 relative">
                         {id ? (
                             <div className="cursor-not-allowed w-full p-2 border border-gray-500 rounded  bg-gray-700/20">{` ${
                                 Game.players[Number(id) - 1].name
                             }`}</div>
                         ) : (
                             <select
-                                className="w-[150px] p-5 hover:ring hover:ring-purple-400 rounded-4xl bg-gradient-to-bl from-[#FF6091] to-[#5127DD] "
+                                className={`w-[150px] p-5 hover:ring hover:ring-purple-400 rounded-4xl bg-gradient-to-bl text-sm ${
+                                    fromPlayer
+                                        ? Game.players[Number(fromPlayer) - 1]
+                                              .colorTheme
+                                        : "from-[#FF6091] to-[#5127DD]"
+                                }`}
                                 value={fromPlayer}
                                 onChange={(e) => setFromPlayer(e.target.value)}
                             >
                                 <option value="" className="bg-gray-700/50 ">
-                                    Choose Player
+                                    Choose
                                 </option>
                                 {Game.players.map((player, index) => (
                                     <option
@@ -71,16 +59,36 @@ const Transfer = () => {
                                 ))}
                             </select>
                         )}
+                        {fromPlayer && (
+                            <div className="absolute right-3 top-1/2 -translate-y-1/2 z-50">
+                                <img
+                                    src={
+                                        fromPlayer
+                                            ? Game.players[
+                                                  Number(fromPlayer) - 1
+                                              ].image
+                                            : ""
+                                    }
+                                    className="w-10 h-10 "
+                                    alt="player photo"
+                                />
+                            </div>
+                        )}
                     </div>
                     <span className="text-4xl">To</span>
-                    <div className="mb-4">
+                    <div className="mb-4 relative">
                         <select
-                            className="w-[150px] p-5 hover:ring hover:ring-purple-400 rounded-4xl bg-gradient-to-bl from-[#30CD89] to-[#27A1EE] "
+                            className={`w-[150px] p-5 hover:ring hover:ring-purple-400 rounded-4xl bg-gradient-to-bl  text-sm ${
+                                toPlayer
+                                    ? Game.players[Number(toPlayer) - 1]
+                                          .colorTheme
+                                    : "from-[#30CD89] to-[#27A1EE]"
+                            }`}
                             value={toPlayer}
                             onChange={(e) => setToPlayer(e.target.value)}
                         >
                             <option value="" className="bg-gray-700/50 ">
-                                Choose Player
+                                Choose
                             </option>
                             {Game.players.map((player, index) => (
                                 <option
@@ -92,6 +100,20 @@ const Transfer = () => {
                                 </option>
                             ))}
                         </select>
+                        {toPlayer && (
+                            <div className="absolute right-3 top-1/2 -translate-y-1/2 z-50">
+                                <img
+                                    src={
+                                        toPlayer
+                                            ? Game.players[Number(toPlayer) - 1]
+                                                  .image
+                                            : ""
+                                    }
+                                    className="w-10 h-10 "
+                                    alt="player photo"
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="mb-4 flex flex-col items-center justify-center">
