@@ -1,18 +1,8 @@
-import PlayerCard from "../../Components/PlayerCard/PlayerCard";
 import { useGame } from "../../Context/GameContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-const pageVariants = {
-    hidden: { x: `-100vw` },
-    visible: {
-        x: 0,
-        transition: { type: "spring", duration: 0.4 },
-    },
-    exit: {
-        x: "100vw",
-        transition: { type: "spring", duration: 0.2 },
-    },
-};
+import pageVariants from "../../assets/pageVariants.json";
+
 const Winners = () => {
     const Game = useGame();
     const Navigate = useNavigate();
@@ -31,15 +21,7 @@ const Winners = () => {
                 </h2>
             </div>
 
-            <div className="relative  justify-between py-10 grid grid-cols-1 md:grid-cols-3 gap-5">
-                {Game?.players
-                    .slice(0, 4)
-                    ?.sort((a, b) => b.balance - a.balance)
-                    .slice(0, 3)
-                    .map((winner, i) => (
-                        <PlayerCard {...winner} rank={i + 1} key={i} />
-                    ))}
-            </div>
+            <div className="relative  justify-between py-10 grid grid-cols-1 md:grid-cols-3 gap-5"></div>
 
             <div className="text-center">
                 <button
