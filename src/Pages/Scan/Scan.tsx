@@ -32,7 +32,7 @@ const Scan = () => {
                         <Webcam
                             className="w-full h-[300px]"
                             videoConstraints={videoConstraints}
-                            onUserMediaError={(error) =>
+                            onUserMediaError={() =>
                                 alert("Camera access denied!")
                             }
                         />

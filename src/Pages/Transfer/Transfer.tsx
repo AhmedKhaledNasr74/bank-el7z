@@ -17,12 +17,12 @@ const pageVariants = {
     },
 };
 
-const gradients = [
-    "from-[#FF6091] to-[#5127DD]",
-    "from-[#F76484] to-[#F79741]",
-    "from-[#30CD89] to-[#27A1EE]",
-    "from-[#FE7B5F] to-[#FFCF37]",
-];
+// const gradients = [
+//     "from-[#FF6091] to-[#5127DD]",
+//     "from-[#F76484] to-[#F79741]",
+//     "from-[#30CD89] to-[#27A1EE]",
+//     "from-[#FE7B5F] to-[#FFCF37]",
+// ];
 const Transfer = () => {
     useRedirectIfGameClosed();
     const { id } = useParams();
