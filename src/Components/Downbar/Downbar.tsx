@@ -7,36 +7,35 @@ import click from "../../assets/click.wav";
 import { useLocation, useNavigate } from "react-router-dom";
 import Message from "../Message/Message";
 import { useState } from "react";
-
+const navigations = [
+    {
+        name: "",
+        icon: end,
+    },
+    {
+        name: "scan",
+        icon: scan,
+    },
+    {
+        name: "game",
+        icon: home,
+    },
+    {
+        name: "bank",
+        icon: bank,
+    },
+    {
+        name: "transfer",
+        icon: transfer,
+    },
+];
 const Downbar = () => {
     const Navigate = useNavigate();
-    const navigations = [
-        {
-            name: "",
-            icon: end,
-        },
-        {
-            name: "scan",
-            icon: scan,
-        },
-        {
-            name: "game",
-            icon: home,
-        },
-        {
-            name: "bank",
-            icon: bank,
-        },
-        {
-            name: "transfer",
-            icon: transfer,
-        },
-    ];
     const location = useLocation();
     const [showMessage, setShowMessage] = useState(false);
     return (
-        <div className="flex items-center justify-center w-full h-16 bg-gradient-to-br from-[#FF6091] to-[#5127DD] text-white font-bold text-lg absolute bottom-0 rounded-t-[50px]">
-            <div className="flex items-center justify-between w-full max-w-4xl px-10">
+        <div className="flex items-center justify-center w-full h-16 bg-gradient-to-br from-[#FF6091] to-[#5127DD] text-white font-bold text-lg  absolute bottom-0 rounded-t-[50px]">
+            <div className="flex items-center justify-between w-full max-w-4xl px-7">
                 {showMessage && <Message setShowMessage={setShowMessage} />}
                 {navigations.map((link, idx) => (
                     <div

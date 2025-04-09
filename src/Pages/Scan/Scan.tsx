@@ -15,7 +15,7 @@ const Scan = () => {
             animate="visible"
             exit="exit"
             variants={pageVariants}
-            className="min-h-screen  flex flex-col items-center justify-center p-4"
+            className="min-h-[100dvh]  flex flex-col items-center justify-center p-4"
         >
             <div className="text-center">
                 <div className="flex items-center justify-center mb-8">

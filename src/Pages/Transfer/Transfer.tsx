@@ -21,7 +21,7 @@ const Transfer = () => {
             animate="visible"
             exit="exit"
             variants={pageVariants}
-            className="flex items-center justify-center h-screen "
+            className="flex items-center justify-center min-h-[100dvh] "
         >
             <div className="w-full max-w-md  rounded-lg  p-6">
                 <div className="flex items-center justify-center mb-6">

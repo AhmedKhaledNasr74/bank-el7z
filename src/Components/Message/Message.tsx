@@ -9,7 +9,7 @@ type MessageProps = {
 const Message = ({ setShowMessage }: MessageProps) => {
     const Navigate = useNavigate();
     return (
-        <div className="w-full h-screen flex flex-col items-center justify-center text-white fixed z-50 top-0 left-0 bg-black bg-opacity-50">
+        <div className="w-full min-h-[100dvh] flex flex-col items-center justify-center text-white fixed z-50 top-0 left-0 bg-black bg-opacity-50">
             <div className="flex items-center justify-center mb-20">
                 <img src={logo} alt="logo photo" className="w-44 " />
             </div>

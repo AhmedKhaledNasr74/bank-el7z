@@ -25,28 +25,28 @@ const LOCAL_STORAGE_SCOREBOARD = "scoreboard";
 const INITIAL_SCOREBOARD = [
     {
         id: "1",
-        name: "1",
+        name: "player 1",
         balance: START_BALANCE,
         image: player1,
         colorTheme: "from-[#FF6091] to-[#5127DD]",
     },
     {
         id: "2",
-        name: "2",
+        name: "player 2",
         balance: START_BALANCE,
         image: player2,
         colorTheme: "from-[#F76484] to-[#F79741]",
     },
     {
         id: "3",
-        name: "3",
+        name: "player 3",
         balance: START_BALANCE,
         image: player3,
         colorTheme: "from-[#30CD89] to-[#27A1EE]",
     },
     {
         id: "4",
-        name: "4",
+        name: "player 4",
         balance: START_BALANCE,
         image: player4,
         colorTheme: "from-[#FE7B5F] to-[#FFCF37]",

@@ -16,7 +16,7 @@ const Start = () => {
             animate="visible"
             exit="exit"
             variants={pageVariants}
-            className="flex items-center justify-center h-screen relative "
+            className="flex items-center justify-center min-h-[100dvh] relative "
         >
             <div className="text-center px-2">
                 <div className="flex items-center justify-center mb-8">

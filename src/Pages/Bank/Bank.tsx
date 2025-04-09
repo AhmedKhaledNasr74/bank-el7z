@@ -26,7 +26,7 @@ const Bank = () => {
             animate="visible"
             exit="exit"
             variants={pageVariants}
-            className="min-h-screen flex flex-col items-center justify-center p-4"
+            className="min-h-[100dvh] flex flex-col items-center justify-center p-4"
         >
             <div className="w-full max-w-md rounded-2xl p-8 transform transition-all">
                 <div className="flex items-center justify-center mb-8">

@@ -12,7 +12,7 @@ const Game = () => {
             animate="visible"
             exit="exit"
             variants={pageVariants}
-            className="flex items-center justify-center h-screen "
+            className="flex items-center justify-center min-h-[100dvh] "
         >
             <div className="text-center w-full">
                 <Scoreboard />

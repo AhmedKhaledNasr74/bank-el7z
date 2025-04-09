@@ -16,7 +16,7 @@ function App() {
     const location = useLocation();
 
     return (
-        <div>
+        <div className="relative min-h-[100dvh] ">
             <Particles />
             <GameContextProvider>
                 <Toaster
