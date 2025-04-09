@@ -112,7 +112,7 @@ const Winners = () => {
                 </div>
             </div>
 
-            <div className="text-center">
+            <div className="text-center flex justify-center items-center gap-5 mt-10  w-full">
                 <button
                     className="px-6 py-3 mt-10 text-lg w-[200px] cursor-pointer font-semibold text-black  rounded-lg shadow-lg button focus:outline-none focus:ring-4 focus:ring-purple-300 transition-transform transform hover:scale-105"
                     onClick={() => {
@@ -122,6 +122,16 @@ const Winners = () => {
                     }}
                 >
                     New Game
+                </button>
+
+                <button
+                    className="px-6 py-3 mt-10 text-lg w-[200px] cursor-pointer font-semibold text-black  rounded-lg shadow-lg bg-gradient-to-br from-red-400 to-red-700 focus:outline-none focus:ring-4 focus:ring-purple-300 transition-transform transform hover:scale-105"
+                    onClick={() => {
+                        Game.endGame();
+                        Navigate("/");
+                    }}
+                >
+                    Close
                 </button>
             </div>
         </motion.div>

@@ -35,7 +35,7 @@ const Transfer = () => {
                 <div className="flex gap-5 items-center justify-center mb-8">
                     <div className="mb-4 mt-2 relative">
                         {id ? (
-                            <div className="cursor-not-allowed w-full p-2 border border-gray-500 rounded  bg-gray-700/20">{` ${
+                            <div className="cursor-not-allowed  w-[150px] p-5 hover:ring hover:ring-purple-400 rounded-4xl bg-gradient-to-bl text-sm border border-gray-500   bg-gray-700/20">{` ${
                                 Game.players[Number(id) - 1].name
                             }`}</div>
                         ) : (
