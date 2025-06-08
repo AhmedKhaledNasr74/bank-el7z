@@ -36,7 +36,7 @@ const Transfer = () => {
                     <div className="mb-4 mt-2 relative">
                         {id ? (
                             <div className="cursor-not-allowed  w-[150px] p-5 hover:ring hover:ring-purple-400 rounded-4xl bg-gradient-to-bl text-sm border border-gray-500   bg-gray-700/20">{` ${
-                                Game.players[Number(id) - 1].name
+                                Game.players[Number(id) - 1]?.name
                             }`}</div>
                         ) : (
                             <select
@@ -70,7 +70,7 @@ const Transfer = () => {
                                         fromPlayer
                                             ? Game.players[
                                                   Number(fromPlayer) - 1
-                                              ].image
+                                              ]?.image
                                             : ""
                                     }
                                     className="w-10 h-10 "
